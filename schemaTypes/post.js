@@ -1,65 +1,53 @@
-import {defineField, defineType} from 'sanity'
-
-export default defineType({
+export default {
   name: 'post',
-  title: 'Post',
+  title: 'Article',
   type: 'document',
   fields: [
-    defineField({
+    { 
       name: 'title',
-      title: 'Title',
-      type: 'string',
-    }),
-    defineField({
+      title: 'Titre',
+      type: 'string'
+    },
+    {
       name: 'slug',
-      title: 'Slug',
+      title: 'Slug (URL)',
       type: 'slug',
       options: {
         source: 'title',
-        maxLength: 96,
-      },
-    }),
-    defineField({
-      name: 'author',
-      title: 'Author',
-      type: 'reference',
-      to: {type: 'author'},
-    }),
-    defineField({
+        maxLength: 96
+      }
+    },
+    {
       name: 'mainImage',
-      title: 'Main image',
+      title: 'Image principale',
       type: 'image',
       options: {
-        hotspot: true,
-      },
-    }),
-    defineField({
-      name: 'categories',
-      title: 'Categories',
+        hotspot: true
+      }
+    },
+    {
+      name: 'bodyPreview',
+      title: 'Preview',
       type: 'array',
-      of: [{type: 'reference', to: {type: 'category'}}],
-    }),
-    defineField({
-      name: 'publishedAt',
-      title: 'Published at',
-      type: 'datetime',
-    }),
-    defineField({
+      of: [{ type: 'block' }],
+      validation: Rule =>
+        Rule.custom(blocks => {
+          if (!blocks) return true;
+          const text = blocks
+            .map(block => 
+              block.children
+                .map(child => child.text)
+                .join('')
+            )
+            .join('');
+          return text.length <= 5000 ? true : 'Maximum 5000 caractères autorisés';
+        })
+    },
+    {
       name: 'body',
-      title: 'Body',
-      type: 'blockContent',
-    }),
-  ],
-
-  preview: {
-    select: {
-      title: 'title',
-      author: 'author.name',
-      media: 'mainImage',
-    },
-    prepare(selection) {
-      const {author} = selection
-      return {...selection, subtitle: author && `by ${author}`}
-    },
-  },
-})
+      title: 'Contenu',
+      type: 'array',
+      of: [{ type: 'block' }]
+    }
+  ]
+}
