@@ -40,7 +40,7 @@ export default {
                 .join('')
             )
             .join('');
-          return text.length <= 5000 ? true : 'Maximum 5000 caractères autorisés';
+          return text.length <= 150 ? true : 'Maximum 150 caractères autorisés';
         })
     },
     {
@@ -48,6 +48,17 @@ export default {
       title: 'Contenu',
       type: 'array',
       of: [{ type: 'block' }]
+    },
+    {
+      name: 'Date',
+      type: 'datetime',
+      title: 'Date de publication',
+      options: {
+        dateformat: 'YYYY-MM-DD',
+        timeformat: 'HH:mm',
+        timestep: 15,
+        calendarTodayLabel: "Aujourd'hui"
+      }
     }
   ]
 }
