@@ -53,7 +53,7 @@ export default {
       name: 'date',
       type: 'datetime',
       title: 'Date',
-      initialValue: () => new Date().toISOString(),
+      initialValue: () => new Date().toDateString(),
       options: {
         dateformat: 'YYYY-MM-DD',
         timeformat: 'HH:mm',
