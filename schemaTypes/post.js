@@ -50,9 +50,17 @@ export default {
       of: [{ type: 'block' }]
     },
     {
+      name: 'pdfFile',
+      title: 'Fichier PDF',
+      type: 'file',
+      options: {
+        accept: 'application/pdf'
+      }
+    },
+    {
       name: 'date',
       type: 'datetime',
-      title: 'Date',
+      title: 'Date de publication',
       initialValue: () => new Date().toDateString(),
       options: {
         dateformat: 'YYYY-MM-DD',
