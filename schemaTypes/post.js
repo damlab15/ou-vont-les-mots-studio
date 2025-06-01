@@ -53,6 +53,7 @@ export default {
       name: 'date',
       type: 'datetime',
       title: 'Date de publication',
+      initialValue: () => new Date().toISOString(),
       options: {
         dateformat: 'YYYY-MM-DD',
         timeformat: 'HH:mm',
