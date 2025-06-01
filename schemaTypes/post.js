@@ -50,7 +50,7 @@ export default {
       of: [{ type: 'block' }]
     },
     {
-      name: 'Date',
+      name: 'date',
       type: 'datetime',
       title: 'Date de publication',
       options: {
